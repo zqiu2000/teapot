@@ -18,10 +18,9 @@
 #include <linux/delay.h>
 
 #include <asm/apic.h>
+#include "config.h"
 
-#define TEA_ENTRY	(0x1000)
 #define TEA_NAME	"tea.bin"
-#define TEA_SIZE		(32*1024) /*32K*/
 
 static const struct firmware *fw_tea;
 static unsigned int teapot;
@@ -156,7 +155,7 @@ static int load_tea(void)
 	int ret;
 	void *tea_va;
 
-	tea_va = ioremap_nocache(TEA_ENTRY, TEA_SIZE);
+	tea_va = ioremap_nocache(TEA_ENTRY_ADDR, TEA_SIZE);
 
 	memset(tea_va, 0, TEA_SIZE);
 
@@ -189,7 +188,7 @@ static int __init teapot_init(void)
 		return -ENODEV;
 
 	/* Fill boiled water and enjoy */
-	return fill_boiled_water(get_phy_apid(teapot), TEA_ENTRY);
+	return fill_boiled_water(get_phy_apid(teapot), TEA_ENTRY_ADDR);
 }
 
 static void __exit teapot_exit(void)

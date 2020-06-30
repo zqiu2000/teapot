@@ -16,41 +16,8 @@
 #include <asm/ipi.h>
 #include <asm/nmi.h>
 
-#define MEM_LOG_ADDR			(0xA000)
-#define MEM_LOG_SIZE			(0x2000)
-#define SHARE_MEM_ADDR			(MEM_LOG_ADDR+MEM_LOG_SIZE)
-#define SHARE_MEM_SIZE			(0x1000)
-
-#define MSG_BYTES	(16)
-#define MSG_CNT		(32)
-
-enum {
-	MESG_TYPE_ASYNC = 0,
-	MESG_TYPE_SYNC,
-};
-
-enum {
-	MESG_TEST,
-};
-
-struct mesg_payload {
-	uint32_t mesg_type;
-	union _mesg_data {
-		uint8_t raw_dat[MSG_BYTES];
-		struct dat {
-			uint32_t dat0;
-			uint32_t dat1;
-			uint32_t dat2;
-			uint32_t dat3;
-		} mesg_dat;
-	} mesg_data;
-};
-
-typedef struct _mesg_channel{
-	uint32_t tx_id;
-	uint32_t rx_id;
-	struct mesg_payload mesg[MSG_CNT];
-} mesg_channel;
+#include "config.h"
+#include "msg_defs.h"
 
 static mesg_channel *mesg_tx;
 static mesg_channel *mesg_rx;
