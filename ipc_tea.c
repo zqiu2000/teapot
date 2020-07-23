@@ -13,7 +13,6 @@
 #include <linux/miscdevice.h>
 #include <asm/irq.h>
 #include <asm/irq_vectors.h>
-#include <asm/ipi.h>
 #include <asm/nmi.h>
 
 #include "config.h"
